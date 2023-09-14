@@ -30,32 +30,18 @@ const book3 = {
 }
 
 function App() {
-
-
   return (
     <>
       <Book
-        title={book1.title}
-        author={book1.author}
-        year={book1.year}
-        genre={book1.genre}
-        image={book1.image}
+        book={book1} 
       />
 
       <Book
-        title={book2.title}
-        author={book2.author}
-        year={book2.year}
-        genre={book2.genre}
-        image={book2.image}
+        book={book2}
       />
 
       <Book
-        title={book3.title}
-        author={book3.author}
-        year={book3.year}
-        genre={book3.genre}
-        image={book3.image}
+        book={book3}
       />
     </>
   )
