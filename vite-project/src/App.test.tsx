@@ -21,22 +21,25 @@ it('Check if there is a button with id', () => {
     expect(buttonid).toBeInTheDocument()
 })
 
-it('Check if there is a return button', () =>{
+it('Check if there is a return button', () => {
     render(<App />)
-    const buttonBack = screen.getByRole('button', {name: /voltar/i})
+    const buttonBack = screen.getByRole('button', { name: /voltar/i })
     expect(buttonBack).toBeInTheDocument()
 })
 
 it('Check field email and send button', async () => {
- render(<App />)
- const inputEmail = screen.getByLabelText(/email:/i)
- const buttonid = screen.getByTestId('id-send')
- const title = screen.getByRole('heading', {name: /valor/i})
+    render(<App />)
+    const inputEmail = screen.getByLabelText(/email:/i)
+    const buttonid = screen.getByTestId('id-send')
+    const title = screen.getByRole('heading', { name: /valor/i })
 
- const mockinput = '@email.com' 
+    const mockinput = '@email.com'
 
- await userEvent.type(inputEmail, mockinput)
- await userEvent.click(buttonid)
- expect(inputEmail).toHaveValue('') 
- expect(title).toHaveTextContent(`Valor: ${mockinput}`)	
+    await userEvent.type(inputEmail, mockinput)
+    await userEvent.click(buttonid)
+    expect(inputEmail).toHaveValue('')
+    expect(title).toHaveTextContent(`Valor: ${mockinput}`)
 })
+
+
+
