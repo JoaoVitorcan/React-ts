@@ -1,34 +1,43 @@
-import { useState } from 'react';
-import ValidEmail from './components/ValidEmail';
+import { useState } from "react";
+import Team from "./components/Team";
 
 function App() {
-  const [email, setEmail] = useState('')
-  const [title, setTitle] = useState('')
+  const [flamengo, setFlamengo] = useState('')
 
-  function handleClick() {
-    setTitle(email);
-    setEmail('');
+  const handleClick = () => {
+    setFlamengo(flamengo === 'VAI FLAMENGO!' ? '' : 'VAI FLAMENGO!');
   }
+
+
   return (
     <div className="App">
-      <label htmlFor="id-email">
-        Email
-        <input
-          id="id-email"
-          type="email"
-          onChange={({ target }) => setEmail(target.value)}
-          value={email}
+      <h1>Tudo sobre o flamengo</h1>
+      <h2>O maior time do MUNDO!</h2>
+
+      <button onClick={handleClick}>
+        Flamengo
+      </button>
+      <h3>{flamengo}</h3>
+      <br /><br />
+
+      <label htmlFor="time">
+        Time:
+        <input type="text"
+          id="time"
         />
       </label>
-      <input
-        id="btn-send"
-        type="button"
-        data-testid="id-send"
-        value="Enviar"
-        onClick={handleClick}
-      />
-      <input id="btn-back" type="button" value="Voltar" />
-      <ValidEmail email={title} />
+      <br /><br />
+
+
+      <label htmlFor="gols">
+        Gols:
+        <input type="number"
+          id="gols"
+        />
+      </label>
+      <br /><br />
+
+      <Team />
     </div>
   );
 }

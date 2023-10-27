@@ -1,45 +1,56 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from "./App";
+import App from './App';
 
-it('Check if the email field exists', () => {
-    render(<App />)
-    const inputEmail = screen.getByLabelText(/email:/i)
-    expect(inputEmail).toBeInTheDocument()
-    expect(inputEmail).toHaveProperty('type', 'email')
-})
+test('Verifica se o título principal é h1 e contém o texto correto', () => {
+    render(<App />);
+    const titleElement = screen.getByRole('heading', { level: 1, name: /Tudo sobre o flamengo/i });
+    expect(titleElement).toBeInTheDocument();
+    expect(titleElement.tagName).toBe('H1');
+});
 
-it('Check if there are two buttons', () => {
-    render(<App />)
-    const button = screen.getAllByRole('button')
-    expect(button).toHaveLength(2)
-})
+test('Verifica se o subtítulo é h2 e contém o texto correto', () => {
+    render(<App />);
+    const subtitleElement = screen.getByRole('heading', { level: 2, name: /O maior time do MUNDO!/i });
+    expect(subtitleElement).toBeInTheDocument();
+    expect(subtitleElement.tagName).toBe('H2');
+});
 
-it('Check if there is a button with id', () => {
-    render(<App />)
-    const buttonid = screen.getByTestId('id-send')
-    expect(buttonid).toBeInTheDocument()
-})
+test('Verifica se existe um campo de texto para "Time"', () => {
+    render(<App />);
+    const inputTime = screen.getByLabelText('Time:');
+    expect(inputTime).toBeInTheDocument();
+    expect(inputTime).toHaveAttribute('type', 'text');
+});
 
-it('Check if there is a return button', () => {
-    render(<App />)
-    const buttonBack = screen.getByRole('button', { name: /voltar/i })
-    expect(buttonBack).toBeInTheDocument()
-})
+test('Verifica se existe um campo de número para "Gols"', () => {
+    render(<App />);
+    const inputGols = screen.getByLabelText('Gols:');
+    expect(inputGols).toBeInTheDocument();
+    expect(inputGols).toHaveAttribute('type', 'number');
+});
 
-it('Check field email and send button', async () => {
-    render(<App />)
-    const inputEmail = screen.getByLabelText(/email:/i)
-    const buttonid = screen.getByTestId('id-send')
-    const title = screen.getByRole('heading', { name: /valor/i })
+test('Verifica a quantidade de labels(campos)', () => {
+    render(<App />);
+    const labels = screen.getAllByLabelText(/:/i);
+    expect(labels.length).toBe(2);
+});
 
-    const mockinput = '@email.com'
+test('Verifica se existe um botão "Flamengo" e simula o clique', async () => {
+    render(<App />);
+    const buttonElement = screen.getByRole('button', { name: /Flamengo/i });
+    expect(buttonElement).toBeInTheDocument();
 
-    await userEvent.type(inputEmail, mockinput)
-    await userEvent.click(buttonid)
-    expect(inputEmail).toHaveValue('')
-    expect(title).toHaveTextContent(`Valor: ${mockinput}`)
-})
+    await userEvent.click(buttonElement);
+    const outputElement = screen.getByText(/VAI FLAMENGO!/i);
+    expect(outputElement).toBeInTheDocument();
+
+    await userEvent.click(buttonElement);
+
+    // Agora, em vez de verificar por um texto vazio, podemos verificar se o elemento não está presente
+    const outputElement2 = screen.queryByText(/VAI FLAMENGO!/i);
+    expect(outputElement2).not.toBeInTheDocument();
+});
 
 
 
