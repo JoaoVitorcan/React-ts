@@ -32,12 +32,12 @@ function App() {
     fetchData_2() 
   },[])
 
-  if(!data) return <h1>Loading...</h1>
+  if(!data) return <h1>Loading...</h1>  
   if(!data2) return <h1>Loading...</h1>
   
   return (
     <>
-    {data.map((e) => (
+    {data.map((e) => (   //map para percorrer o array e mostrar os dados
       <div>
         <h1>{e.Title}</h1>
         <img src={e.Poster} alt="" />
